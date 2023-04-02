@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    background-color:rgb(161, 161, 161)
+}
+
+.main-container {
+    display: flex;
+
+}
+
+.form-container {
+    padding-right: 25px;
+    background-color: rgb(163, 149, 137);
+}
+
+.items-container {
+
+    background-color: rgb(170, 135, 173);
+}
+
+#items {
+    background-color: rgb(119, 126, 161);
+
+
+}
+
+.item {
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.item p{
+    margin: 0;
+}
