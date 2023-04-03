@@ -1,22 +1,15 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
-    background-color:rgb(161, 161, 161)
+    background-color:gainsboro;
 }
 
 .main-container {
     display: flex;
-
 }
 
 .form-container {
-    padding-right: 25px;
-    background-color: rgb(163, 149, 137);
-}
-
-.items-container {
-
-    background-color: rgb(170, 135, 173);
+    padding: 0 25px;
 }
 
 .item {
@@ -27,6 +20,10 @@ body {
 
 .item p{
     margin: 0;
+}
+
+input {
+    margin-bottom: 5px;
 }
 
 .delete {
