@@ -3,42 +3,40 @@ let input = document.getElementById("input");
 let items = document.getElementById("items");
 let deadlineInput = document.getElementById("deadline");
 // let sessionStorageData = JSON.parse(sessionStorage.getItem('items'));
-let itemsList = [];
+let itemsList = JSON.parse(sessionStorage.getItem("items")) || [];
 
+let deleteButton = document.getElementById(".delete");
+
+
+// itemsList = JSON.parse(sessionStorage.getItem('items'));
+// sessionStorage.setItem('items', sessionStorage.getItem('items'));
 // sessionStorage.setItem('items', JSON.stringify({"description":"test1","deadline":"25 days 0 hours 2 minutes left"}));
-itemsList.push({"description":"test1","deadline":"25 days 0 hours 2 minutes left"});
-
-
-
 // let sessionStorageData = JSON.parse(sessionStorage.getItem('items'));
 // itemsList.push(JSON.parse(sessionStorage.getItem('items')));
 // console.log(sessionStorageData);
-console.log(itemsList);
+// console.log(itemsList);
+console.log(sessionStorage.getItem("items"));
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   acceptData();
-  // createTasks(task)
 
-  // form.reset();
+  form.reset();
+  displayData()
 });
 
 
 function acceptData() {
-  // itemsList = JSON.parse(sessionStorageData["items"]);
-  // itemsList.push(JSON.parse(sessionStorage.getItem('items')));
-  // itemsList = sessionStorage.getItem("items");
-  
   itemsList.push({
     description: input.value,
-    deadline: TimeLeft(),
+    deadline: calculateTimeLeft(),
   });
 
   sessionStorage.setItem("items", JSON.stringify(itemsList));
 }
 
 
-function TimeLeft() {
+function calculateTimeLeft() {
   if (deadlineInput.value == "") {
     return "";
   }
@@ -56,14 +54,11 @@ function TimeLeft() {
 
 
 function createTasks(task) {
-  // items.innerHTML = "";
-  // let data = JSON.parse(sessionStorage.getItem('items'))
-
     let item = document.createElement("div");
     description = document.createElement("p");
     deadline = document.createElement("p");
     outputRemoveButton = document.createElement("button");
-    outputRemoveButton.classList.add('delete')
+    outputRemoveButton.classList.add("delete");
     description.innerText = task.description;
     deadline.innerText = task.deadline;
     outputRemoveButton.innerText = "delete";
@@ -73,32 +68,66 @@ function createTasks(task) {
     description.appendChild(outputRemoveButton);
     items.appendChild(item);
     item.classList.add("item");
+
 };
 
 
-window.onload = (e) => {
+items.addEventListener('click', (e) => {
   e.preventDefault();
+
+  items.removeChild(e.target.parentNode.parentNode);
+
+  for(let item in itemsList) {
+    if(itemsList[item].description == e.target.parentNode.innerText.split("delete")[0]) {
+      itemsList.splice(itemsList.indexOf(itemsList[item]), 1);
+    }
+  }
+
+  sessionStorage.setItem("items", JSON.stringify(itemsList));
+
+  console.log(e.target.parentNode.innerText.split("delete")[0])
+
+  console.log(itemsList)
+});
+
+
+// window.onload = (e) => {
+//   e.preventDefault();
   
-  // if (itemsList.length == 0) {
-  //   sessionStorage.setItem('items', JSON.stringify({"description":"test1","deadline":"25 days 0 hours 2 minutes left"}));
+//   // if (itemsList.length == 0) {
+//   //   sessionStorage.setItem('items', JSON.stringify({"description":"test1","deadline":"25 days 0 hours 2 minutes left"}));
+//   // }
+//   // itemsList = JSON.parse(sessionStorage.getItem('items'));
+
+//   // sessionStorage.setItem('items', JSON.stringify({"description":"test1","deadline":"25 days 0 hours 2 minutes left"}));
+//   // itemsList = JSON.parse(sessionStorage.getItem('items'));
+
+//   // itemsList.push(JSON.parse(sessionStorage.getItem('items')));
+//   // sessionStorageData.forEach((task) => {
+//   // createTasks(task);
+//   // });
+
+//   //  if (itemsList.length != 0) {
+//   //   itemsList.forEach((task) => {
+//   //     createTasks(task);
+//   //     });  }
+//       // itemsList.forEach((task) => {
+//       // createTasks(task);
+//       // });
+//   // displayData()
+
+// }
+
+function displayData() {
+  items.innerHTML = "";
+  // if (sessionStorage.getItem('items')) {
+    // itemsList = JSON.parse(sessionStorage.getItem('items'));
+
+    itemsList.forEach((task) => {
+    createTasks(task);
+    });
   // }
-  // itemsList = JSON.parse(sessionStorage.getItem('items'));
-
-  // sessionStorage.setItem('items', JSON.stringify({"description":"test1","deadline":"25 days 0 hours 2 minutes left"}));
-  // itemsList = JSON.parse(sessionStorage.getItem('items'));
-
-  // itemsList.push(JSON.parse(sessionStorage.getItem('items')));
-  // sessionStorageData.forEach((task) => {
-  // createTasks(task);
-  // });
-
-  //  if (itemsList.length != 0) {
-  //   itemsList.forEach((task) => {
-  //     createTasks(task);
-  //     });  }
-      itemsList.forEach((task) => {
-      createTasks(task);
-      });
-  
-
+   
 }
+
+displayData()
