@@ -10,7 +10,7 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   acceptData();
   form.reset();
-  displayData()
+  displayData();
 });
 
 // Add data to session storage
@@ -42,31 +42,33 @@ function calculateTimeLeft() {
 
 // Creates div element and populates it task items and data
 function createTasks(task) {
-    let item = document.createElement("div");
-    description = document.createElement("p");
-    deadline = document.createElement("p");
-    outputRemoveButton = document.createElement("button");
-    outputRemoveButton.classList.add("delete");
-    description.innerText = task.description;
-    deadline.innerText = task.deadline;
-    outputRemoveButton.innerText = "delete";
+  let item = document.createElement("div");
+  description = document.createElement("p");
+  deadline = document.createElement("p");
+  outputRemoveButton = document.createElement("button");
+  outputRemoveButton.classList.add("delete");
+  description.innerText = task.description;
+  deadline.innerText = task.deadline;
+  outputRemoveButton.innerText = "delete";
 
-    item.appendChild(description);
-    item.appendChild(deadline);
-    description.appendChild(outputRemoveButton);
-    items.appendChild(item);
-    item.classList.add("item");
-
-};
+  item.appendChild(description);
+  item.appendChild(deadline);
+  description.appendChild(outputRemoveButton);
+  items.appendChild(item);
+  item.classList.add("item");
+}
 
 // Delete items from session storage
-items.addEventListener('click', (e) => {
+items.addEventListener("click", (e) => {
   e.preventDefault();
 
   items.removeChild(e.target.parentNode.parentNode);
 
-  for(let item in itemsList) {
-    if(itemsList[item].description == e.target.parentNode.innerText.split("delete")[0]) {
+  for (let item in itemsList) {
+    if (
+      itemsList[item].description ==
+      e.target.parentNode.innerText.split("delete")[0]
+    ) {
       itemsList.splice(itemsList.indexOf(itemsList[item]), 1);
     }
   }
@@ -77,9 +79,9 @@ items.addEventListener('click', (e) => {
 // Renders data from session storage
 function displayData() {
   items.innerHTML = "";
-    itemsList.forEach((task) => {
+  itemsList.forEach((task) => {
     createTasks(task);
-    });
+  });
 }
 
-displayData()
+displayData();
