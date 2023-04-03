@@ -2,30 +2,18 @@ let form = document.getElementById("form");
 let input = document.getElementById("input");
 let items = document.getElementById("items");
 let deadlineInput = document.getElementById("deadline");
-// let sessionStorageData = JSON.parse(sessionStorage.getItem('items'));
 let itemsList = JSON.parse(sessionStorage.getItem("items")) || [];
-
 let deleteButton = document.getElementById(".delete");
 
-
-// itemsList = JSON.parse(sessionStorage.getItem('items'));
-// sessionStorage.setItem('items', sessionStorage.getItem('items'));
-// sessionStorage.setItem('items', JSON.stringify({"description":"test1","deadline":"25 days 0 hours 2 minutes left"}));
-// let sessionStorageData = JSON.parse(sessionStorage.getItem('items'));
-// itemsList.push(JSON.parse(sessionStorage.getItem('items')));
-// console.log(sessionStorageData);
-// console.log(itemsList);
-console.log(sessionStorage.getItem("items"));
-
+// Submit data for storage and display
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   acceptData();
-
   form.reset();
   displayData()
 });
 
-
+// Add data to session storage
 function acceptData() {
   itemsList.push({
     description: input.value,
@@ -35,7 +23,7 @@ function acceptData() {
   sessionStorage.setItem("items", JSON.stringify(itemsList));
 }
 
-
+// Calculate deadline for task
 function calculateTimeLeft() {
   if (deadlineInput.value == "") {
     return "";
@@ -52,7 +40,7 @@ function calculateTimeLeft() {
   return `${days} days ${hours} hours ${minutes} minutes left`;
 }
 
-
+// Creates div element and populates it task items and data
 function createTasks(task) {
     let item = document.createElement("div");
     description = document.createElement("p");
@@ -71,7 +59,7 @@ function createTasks(task) {
 
 };
 
-
+// Delete items from session storage
 items.addEventListener('click', (e) => {
   e.preventDefault();
 
@@ -84,50 +72,14 @@ items.addEventListener('click', (e) => {
   }
 
   sessionStorage.setItem("items", JSON.stringify(itemsList));
-
-  console.log(e.target.parentNode.innerText.split("delete")[0])
-
-  console.log(itemsList)
 });
 
-
-// window.onload = (e) => {
-//   e.preventDefault();
-  
-//   // if (itemsList.length == 0) {
-//   //   sessionStorage.setItem('items', JSON.stringify({"description":"test1","deadline":"25 days 0 hours 2 minutes left"}));
-//   // }
-//   // itemsList = JSON.parse(sessionStorage.getItem('items'));
-
-//   // sessionStorage.setItem('items', JSON.stringify({"description":"test1","deadline":"25 days 0 hours 2 minutes left"}));
-//   // itemsList = JSON.parse(sessionStorage.getItem('items'));
-
-//   // itemsList.push(JSON.parse(sessionStorage.getItem('items')));
-//   // sessionStorageData.forEach((task) => {
-//   // createTasks(task);
-//   // });
-
-//   //  if (itemsList.length != 0) {
-//   //   itemsList.forEach((task) => {
-//   //     createTasks(task);
-//   //     });  }
-//       // itemsList.forEach((task) => {
-//       // createTasks(task);
-//       // });
-//   // displayData()
-
-// }
-
+// Renders data from session storage
 function displayData() {
   items.innerHTML = "";
-  // if (sessionStorage.getItem('items')) {
-    // itemsList = JSON.parse(sessionStorage.getItem('items'));
-
     itemsList.forEach((task) => {
     createTasks(task);
     });
-  // }
-   
 }
 
 displayData()
