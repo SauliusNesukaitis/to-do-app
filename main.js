@@ -58,20 +58,13 @@ function createTasks(task) {
   item.classList.add("item");
 }
 
-// Delete items from session storage
+// Delete items
 items.addEventListener("click", (e) => {
   e.preventDefault();
-
-  items.removeChild(e.target.parentNode.parentNode);
-
-  for (let item in itemsList) {
-    if (
-      itemsList[item].description ==
-      e.target.parentNode.innerText.split("delete")[0]
-    ) {
-      itemsList.splice(itemsList.indexOf(itemsList[item]), 1);
-    }
-  }
+  e.target.parentElement.parentElement.remove();
+  itemsList.splice(e.target.parentElement.parentElement.id, 1);
+  sessionStorage.setItem("items", JSON.stringify(itemsList));
+});
 
   sessionStorage.setItem("items", JSON.stringify(itemsList));
 });
