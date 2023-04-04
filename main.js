@@ -1,9 +1,9 @@
-let form = document.getElementById("form");
-let input = document.getElementById("input");
-let items = document.getElementById("items");
-let deadlineInput = document.getElementById("deadline");
-let itemsList = JSON.parse(sessionStorage.getItem("items")) || [];
-let deleteButton = document.getElementById(".delete");
+const form = document.getElementById("form");
+const input = document.getElementById("input");
+const items = document.getElementById("items");
+const deadlineInput = document.getElementById("deadline");
+const itemsList = JSON.parse(sessionStorage.getItem("items")) || [];
+const deleteButton = document.getElementById(".delete");
 
 // Submit data for storage and display
 form.addEventListener("submit", (e) => {
